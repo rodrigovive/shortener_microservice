@@ -1,14 +1,12 @@
 const express = require('express')
 
-const apiRouter = express.Router();
+const apiController = require('../controllers/apiController')
 
+const apiRouter = express.Router();
 
 function router() {
 
-  apiRouter.post('/shorturl/new',(req,res)=>{
-
-    res.json('test');
-  })
+  apiRouter.post('/shorturl/new',apiController.shortener)
   return apiRouter;
 
 }
