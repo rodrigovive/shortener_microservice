@@ -4,6 +4,7 @@ const express = require('express');
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
+mongoose.connect('mongodb://user:password1@ds019980.mlab.com:19980/shortener');
 
 const cors = require('cors');
 

@@ -7,6 +7,9 @@ const apiRouter = express.Router();
 function router() {
 
   apiRouter.post('/shorturl/new',apiController.shortener)
+
+  apiRouter.get('/shorturl/:id',apiController.getShortener)
+
   return apiRouter;
 
 }
