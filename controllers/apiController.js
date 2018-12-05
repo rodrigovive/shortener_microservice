@@ -1,5 +1,6 @@
 const dns = require('dns')
 const url = require('url')
+const shortenerSaveHelper = require('../models/helper/shortener.save');
 
 const readDnsLink = (link,cb = () => {}) => {
 
@@ -52,23 +53,29 @@ const apiController = () => {
 
         let shortIndex;
 
-        if(shortLinks.includes(urlBody)){
+        shortenerSaveHelper({
 
-          shortIndex = shortLinks.indexOf(urlBody);
+          "url": urlBody,
 
-        }else{
+        },res);
 
-          shortIndex = shortLinks.push(urlBody) - 1;
-
-        }
-
-        res.json({
-
-          "original_url": urlBody,
-          "short_url": shortIndex
-          // "array": shortLinks
-
-        })
+        // if(shortLinks.includes(urlBody)){
+        //
+        //   shortIndex = shortLinks.indexOf(urlBody);
+        //
+        // }else{
+        //
+        //   shortIndex = shortLinks.push(urlBody) - 1;
+        //
+        // }
+        //
+        // res.json({
+        //
+        //   "original_url": urlBody,
+        //   "short_url": shortIndex
+        //   // "array": shortLinks
+        //
+        // })
 
       }).catch(err => {
 
