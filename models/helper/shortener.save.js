@@ -3,25 +3,51 @@ const Shortener = require('../shortener.model')
 
 const shortenerSaveHelper = (data,res) => {
 
-  const shortener = new Shortener(data);
+  Shortener.findOne({
+    $or: [
+      {
+        url: data.url
+      }
+    ]
+  })
+  .exec()
+  .then(function(shortenerFind) {
 
-  shortener.save((err,short) => {
+    if(shortenerFind){
 
-    console.log(short)
+      res.json({
 
-    if(err){
+        "original_url": shortenerFind.url,
+        "short_url": shortenerFind.short
 
-      throw err;
+      })
+
+    }else{
+
+      const shortener = new Shortener(data);
+
+      shortener.save((err,short) => {
+
+        if(err){
+          throw err;
+        }
+
+        res.json({
+
+          "original_url": short.url,
+          "short_url": short.short
+
+        })
+
+      })
 
     }
 
-    res.json({
 
-      "original_url": short.url,
-      "short_url": short.short
-      // "array": shortLinks
 
-    })
+  }).catch(function(error) {
+
+    throw error;
 
   })
 

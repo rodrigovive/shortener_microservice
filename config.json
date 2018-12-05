@@ -1,0 +1,3 @@
+{
+  "MONGO_URI": "mongodb://user:password1@ds019980.mlab.com:19980"
+}

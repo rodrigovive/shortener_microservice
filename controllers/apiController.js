@@ -1,6 +1,7 @@
 const dns = require('dns')
 const url = require('url')
 const shortenerSaveHelper = require('../models/helper/shortener.save');
+const { shortenerFindByShort } = require('../models/helper/shortener.find')
 
 const readDnsLink = (link,cb = () => {}) => {
 
@@ -26,8 +27,6 @@ const readDnsLink = (link,cb = () => {}) => {
 }
 
 const apiController = () => {
-
-  const shortLinks = [''];
 
   const shortener = (req,res) => {
 
@@ -59,24 +58,6 @@ const apiController = () => {
 
         },res);
 
-        // if(shortLinks.includes(urlBody)){
-        //
-        //   shortIndex = shortLinks.indexOf(urlBody);
-        //
-        // }else{
-        //
-        //   shortIndex = shortLinks.push(urlBody) - 1;
-        //
-        // }
-        //
-        // res.json({
-        //
-        //   "original_url": urlBody,
-        //   "short_url": shortIndex
-        //   // "array": shortLinks
-        //
-        // })
-
       }).catch(err => {
 
         if(err) res.json(errJSON)
@@ -91,9 +72,21 @@ const apiController = () => {
 
     const { id } = req.params;
 
-    res.json({
-      'url': shortLinks[id]
-    })
+    if(Number.isInteger(id)){
+
+      shortenerFindByShort({
+
+        short: id
+
+      },res)
+
+    }else{
+
+     res.json({
+       'error': 'It should be number'
+     })
+
+    }
 
   }
 
