@@ -8,7 +8,7 @@ const pathConfig = './config.json';
 let dbUri = fs.existsSync(pathConfig) ? require('./config').MONGO_URI : 'mongodb://localhost';
 
 mongoose.connect(`${dbUri}/shortener`);
-console.log(dbUri);
+
 const cors = require('cors');
 
 const app = express();

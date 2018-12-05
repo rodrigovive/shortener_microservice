@@ -72,7 +72,7 @@ const apiController = () => {
 
     const { id } = req.params;
 
-    if(Number.isInteger(id)){
+    if(Number(id)){
 
       shortenerFindByShort({
 
